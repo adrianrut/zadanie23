@@ -31,16 +31,16 @@ SELECT * FROM employee e WHERE job_position = 'Ochroniarz';
 
 -- 5. Pobiera pracowników, którzy mają co najmniej 30 lat
 
-SELECT * FROM employee e WHERE date_of_birth <= '1993-01-28';
+SELECT * FROM employee e WHERE date_of_birth <= CAST((NOW() - INTERVAL 30 YEAR) AS date); 
 
 -- 6. Zwiększa wypłatę pracowników na wybranym stanowisku o 10%
 
 UPDATE employee SET salary = salary + salary * 0.10 WHERE job_position = 'Ochroniarz'; 
 
 -- 7. Pobiera najmłodszego pracowników (uwzględnij przypadek, że może być kilku urodzonych tego samego dnia)
--- tutaj poległem
+-- do poprawy
 
-SELECT * FROM employee e  WHERE date_of_birth = (SELECT MAX(date_of_birth) FROM e ;
+SELECT MAX(date_of_birth) FROM employee e;
 
 -- 8. Usuwa tabelę pracownik
 
@@ -96,13 +96,16 @@ VALUES ('Jan', 'Kowalski', 1, 1),
 ('Michał', 'Wolski', 3, 4);
 
 -- 13. Pobiera pełne informacje o pracowniku (imię, nazwisko, adres, stanowisko)
--- nie wiem dlaczego nie dodaje mi ostatniego pracownika
 
-SELECT * FROM employee e JOIN job_position j ON e.id = j.id JOIN address a ON e.id = a.id ;
+SELECT * FROM employee e JOIN job_position j ON e.job_position_id  = j.id JOIN address a ON e.address_id = a.id ;
 
 -- 14. Oblicza sumę wypłat dla wszystkich pracowników w firmie
 
+SELECT SUM(salary) FROM employee e JOIN job_position jp ON e.job_position_id = jp.id;
+
 -- 15. Pobiera pracowników mieszkających w lokalizacji z kodem pocztowym 90210 (albo innym, który będzie miał sens dla Twoich danych testowych)
+
+SELECT * FROM employee e JOIN address a ON e.address_id = a.id WHERE postcode = '04-683';
 
 
 
