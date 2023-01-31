@@ -40,7 +40,7 @@ UPDATE employee SET salary = salary + salary * 0.10 WHERE job_position = 'Ochron
 -- 7. Pobiera najmłodszego pracowników (uwzględnij przypadek, że może być kilku urodzonych tego samego dnia)
 -- do poprawy
 
-SELECT MAX(date_of_birth) FROM employee e;
+SELECT * FROM employee e WHERE date_of_birth = (SELECT MAX(date_of_birth) FROM employee e);
 
 -- 8. Usuwa tabelę pracownik
 
